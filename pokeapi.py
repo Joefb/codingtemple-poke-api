@@ -21,8 +21,8 @@ class Pokemon:
 
 
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = ""
         self.team = []  # List of pokemon objects No more than 6 at a time
 
     def get_pokemon_data(self, pokemon_identifier):
@@ -84,6 +84,11 @@ class Player:
             print(f"{i}. {pokemon.name} (ID: {pokemon.id}) - {pokemon.type}")
             i += 1
 
+
+class PokemonGame:
+    def __init__(self):
+        pass
+
     def choose_starter(self):
         print("Choose your starting Pokemon!")
         print("1. Bulbasaur")
@@ -91,10 +96,10 @@ class Player:
         print("3. Squirtle")
 
         name = input("Enter your pokemon's name: ")
-        poke_dict = self.get_pokemon_data(name)
+        poke_dict = player.get_pokemon_data(name)
         if poke_dict:
             pokemon = Pokemon(**poke_dict)
-            self.add_pokemon(pokemon)
+            player.add_pokemon(pokemon)
         else:
             print("Invalid Pokename, please try again")
 
@@ -111,20 +116,17 @@ class Player:
 4.) Quit game
 """)
             choice = int(input("(1-4): "))
-            if choice == 1:
-                pass  # Go look for pokemon to catch
-            elif choice == 2:
-                pass  # View all the pokemon in the player's team
-            elif choice == 3:
-                pass  # remove a pokemon from our team using its index
-            elif choice == 4:
+            if choice == 4:
                 print("Thanks for playing!")
                 return  # Quit out the game
 
-
-class PokemonGame:
-    def __init__(self):
-        self.name = ""
+            if choice == 1:
+                pass  # Go look for pokemon to catch
+            elif choice == 2:
+                player.show_collection()  # View all the pokemon in the player's team
+            elif choice == 3:
+                player.remove_pokemon()
+                pass  # remove a pokemon from our team using its index
 
     def intro_screen(self):
         """
@@ -134,8 +136,8 @@ class PokemonGame:
         os.system("clear")
         print("Welcome to Pokemon CLI Adventure!")
         try:
-            self.name = str(input(("What is your name, trainer? ")))
-            if len(self.name) <= 0:
+            name = str(input(("What is your name, trainer? ")))
+            if len(name) <= 0:
                 print("No name given.")
                 input("Press Enter to try again...")
                 self.intro_screen()
@@ -145,8 +147,12 @@ class PokemonGame:
             input("Press Enter to try again...")
             self.intro_screen()
 
-        print(f"Hello {self.name}!! Lets go hunting!")
-        print(f"Ok {self.name} lets get you set up with a starter Pokemon!")
+        player = Player()
+        player.name = name.title()
+
+        print(f"Hello {player.name}!! Lets go hunting!")
+        print(f"Ok {player.name} lets get you set up with a starter Pokemon!")
+        player.choose_starter()
 
     def go_hunting(self):
         pass
