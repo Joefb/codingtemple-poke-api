@@ -37,9 +37,9 @@ class Player:
 
     def remove_pokemon(self, index):
         """Remove a Pokemon from the collection by index"""
-        if len(self.team) and index >= 0 and index < len(self.team):
+
+        if len(self.team) >= 0 and index >= 0 and index <= len(self.team):
             pokemon = self.team.pop(index)
-            print(f"{pokemon.name} has been released!")
             return pokemon
         else:
             return None
@@ -110,7 +110,7 @@ class PokemonGame:
         while True:
             print("""
 ============== Menu ================
-1.) Search for a Pokemon
+1.) Go Pokemon Hunting!
 2.) View our team
 3.) Remove Pokemon from team
 4.) Quit game
@@ -125,8 +125,7 @@ class PokemonGame:
             elif choice == 2:
                 player.show_collection()  # View all the pokemon in the player's team
             elif choice == 3:
-                player.remove_pokemon()
-                pass  # remove a pokemon from our team using its index
+                self.remove_pokemon_menu(player)
 
     def intro_screen(self):
         """
@@ -135,6 +134,7 @@ class PokemonGame:
 
         os.system("clear")
         print("Welcome to Pokemon CLI Adventure!")
+        name = ""
         try:
             name = str(input(("What is your name, trainer? ")))
             if len(name) <= 0:
@@ -160,8 +160,34 @@ class PokemonGame:
     def try_catch_pokemon(self):
         pass
 
-    def remove_pokemon_menu(self):
-        pass
+    def remove_pokemon_menu(self, player):
+        print("Release the pokemon back to nature!")
+        print("What pokemon will you release?")
+        player.show_collection()
+
+        if len(player.team) == 0:
+            print("You dont have any pokemon! Go capture some!")
+            return
+
+        index = None
+        while True:
+            try:
+                index = int(input("Enter Number->"))
+                if index < len(player.team) or index > len(player.team):
+                    print("Invalid number.")
+                    continue
+            except ValueError:
+                print("Invalid Number.")
+                continue
+
+            break
+
+        poke_removed = player.remove_pokemon(index - 1)
+
+        print(f"You release the {poke_removed}!")
+        print(
+            f"Look how happy {poke_removed} is now that they are not forced to fight and die for you!"
+        )
 
 
 def main():
