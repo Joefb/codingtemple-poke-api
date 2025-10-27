@@ -25,6 +25,37 @@ class Player:
         self.name = ""
         self.team = []  # List of pokemon objects No more than 6 at a time
 
+    def add_pokemon(self, pokemon):
+        """Takes in a pokemon object and adds it to the team if there is room"""
+        if len(self.team) < 6:
+            self.team.append(pokemon)
+            print(f"{pokemon.name} has been added ot the team!")
+            return
+        else:
+            print("The team is full, remove a pokemon to make space.")
+            return
+
+    def remove_pokemon(self, index):
+        """Remove a Pokemon from the collection by index"""
+        if len(self.team) and index >= 0 and index < len(self.team):
+            pokemon = self.team.pop(index)
+            print(f"{pokemon.name} has been released!")
+            return pokemon
+        else:
+            return None
+
+    def show_collection(self):
+        print(f"{self.name}'s Pokemon Collection:")
+        i = 1
+        for pokemon in self.team:
+            print(f"{i}. {pokemon.name} (ID: {pokemon.id}) - {pokemon.type}")
+            i += 1
+
+
+class PokemonGame:
+    def __init__(self):
+        pass
+
     def get_pokemon_data(self, pokemon_identifier):
         """
         Get Pokemon data from PokeAPI and extract game-relevant information
@@ -58,54 +89,23 @@ class Player:
             print(f"Failed to catch {pokemon_identifier}")
             return None
 
-    def add_pokemon(self, pokemon):
-        """Takes in a pokemon object and adds it to the team if there is room"""
-        if len(self.team) < 6:
-            self.team.append(pokemon)
-            print(f"{pokemon.name} has been added ot the team!")
-            return
-        else:
-            print("The team is full, remove a pokemon to make space.")
-            return
-
-    def remove_pokemon(self, index):
-        """Remove a Pokemon from the collection by index"""
-        if len(self.team) and index >= 0 and index < len(self.team):
-            pokemon = self.team.pop(index)
-            print(f"{pokemon.name} has been released!")
-            return pokemon
-        else:
-            return None
-
-    def show_collection(self):
-        print(f"{self.name}'s Pokemon Collection:")
-        i = 1
-        for pokemon in self.team:
-            print(f"{i}. {pokemon.name} (ID: {pokemon.id}) - {pokemon.type}")
-            i += 1
-
-
-class PokemonGame:
-    def __init__(self):
-        pass
-
-    def choose_starter(self):
+    def choose_starter(self, player):
         print("Choose your starting Pokemon!")
         print("1. Bulbasaur")
         print("2. Charmander")
         print("3. Squirtle")
 
         name = input("Enter your pokemon's name: ")
-        poke_dict = player.get_pokemon_data(name)
+        poke_dict = self.get_pokemon_data(name)
         if poke_dict:
             pokemon = Pokemon(**poke_dict)
             player.add_pokemon(pokemon)
         else:
             print("Invalid Pokename, please try again")
 
-        self.main_game_loop()
+        self.main_game_loop(player)
 
-    def main_game_loop(self):
+    def main_game_loop(self, player):
         """Main game loop menu"""
         while True:
             print("""
@@ -152,7 +152,7 @@ class PokemonGame:
 
         print(f"Hello {player.name}!! Lets go hunting!")
         print(f"Ok {player.name} lets get you set up with a starter Pokemon!")
-        player.choose_starter()
+        self.choose_starter(player)
 
     def go_hunting(self):
         pass
