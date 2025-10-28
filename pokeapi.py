@@ -115,7 +115,15 @@ class PokemonGame:
 3.) Remove Pokemon from team
 4.) Quit game
 """)
-            choice = int(input("(1-4): "))
+            try:
+                choice = int(input("(1-4): "))
+                if choice < 1 or choice > 4:
+                    print("Invalid input, please enter a number between 1 and 4.")
+                    continue
+            except ValueError:
+                print("Invalid input, please enter a number between 1 and 4.")
+                continue
+
             if choice == 4:
                 print("Thanks for playing!")
                 return  # Quit out the game
@@ -184,9 +192,9 @@ class PokemonGame:
 
         poke_removed = player.remove_pokemon(index - 1)
 
-        print(f"You release the {poke_removed}!")
+        print(f"You release the {poke_removed.name}!")
         print(
-            f"Look how happy {poke_removed} is now that they are not forced to fight and die for you!"
+            f"Look how happy {poke_removed.name} is now that they are not forced to fight and die for you!"
         )
 
 
