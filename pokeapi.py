@@ -198,15 +198,47 @@ class PokemonGame:
                 continue
 
         if action == 1:
-            self.try_catch_pokemon(player)
+            self.try_catch_pokemon(player, pokemon)
 
         elif action == 2:
             print("You flee like the little sissy that you are!")
             print("Your team laughs at you...")
+            pokemon = None  # dereference pokemon for garbage collection
             return
 
-    def try_catch_pokemon(self, player):
-        pass
+    def try_catch_pokemon(self, player, pokemon):
+        """
+        Set base catch rate 0.25
+        Get ran float num between 0 and 1.0
+        If ran num <= base catch rate, then catch pokemon
+        Else pokemon gets away, return
+        """
+        base_catch_rate = 0.25
+        ran_float = random.random()
+
+        print(f"You stare the {pokemon.name} down!")
+        print(
+            "Hmmm Ive never watched pokemon so I have no idea how the chars catch them.... "
+        )
+        print("Ill make it up!")
+        print(f"You run at the {pokemon.name} and try to spin kick it in the face! ")
+
+        if ran_float <= base_catch_rate:
+            print("Your flying spin kick lands!")
+            print(
+                f"{pokemon.name} crumbles in pain. You hand cuff them and add them to your team!"
+            )
+            player.add_pokemon(pokemon)
+
+        else:
+            print(
+                f"{pokemon.name} rolls on the floor laughing and you miss them by a mile."
+            )
+            print(
+                f'"See ya noob. Cant catch me!" {pokemon.name} says as they run away!'
+            )
+            pokemon = None  # dereference pokemon for garbage collection
+            return
 
     def remove_pokemon_menu(self, player):
         print("Release the pokemon back to nature!")
