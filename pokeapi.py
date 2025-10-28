@@ -29,7 +29,7 @@ class Player:
         """Takes in a pokemon object and adds it to the team if there is room"""
         if len(self.team) < 6:
             self.team.append(pokemon)
-            print(f"{pokemon.name} has been added ot the team!")
+            print(f"{pokemon.name} has been added to the team!")
             return
         else:
             print("The team is full, remove a pokemon to make space.")
@@ -129,7 +129,7 @@ class PokemonGame:
                 return  # Quit out the game
 
             if choice == 1:
-                pass  # Go look for pokemon to catch
+                self.go_hunting(player)
             elif choice == 2:
                 player.show_collection()  # View all the pokemon in the player's team
             elif choice == 3:
@@ -162,10 +162,50 @@ class PokemonGame:
         print(f"Ok {player.name} lets get you set up with a starter Pokemon!")
         self.choose_starter(player)
 
-    def go_hunting(self):
-        pass
+    def go_hunting(self, player):
+        """
+        Generate ran num for pokemon id
+        Call get_pokemon_data and pass in ran num
+        Assign returned data to Var
+        Ask user if want to keep
+        If so call try_catch_pokemon
+        """
+        ran_pokemon_id = random.randint(1, 151)
+        ran_pokemon = self.get_pokemon_data(ran_pokemon_id)
 
-    def try_catch_pokemon(self):
+        if ran_pokemon:
+            pokemon = Pokemon(**ran_pokemon)
+            # player.add_pokemon(pokemon)
+
+        print("You and your team go hunting far and wide for a pokemon.")
+        print(f"Suddenly a wild {pokemon.name} appears! They glower at you.")
+
+        while True:
+            print("What do you do!?...")
+            print("1. Try to catch!")
+            print("2. Run like the wind!")
+
+            try:
+                action = int(input("-> "))
+                if action < 1 or action > 2:
+                    print("Enter 1 or 2.")
+                    continue
+                else:
+                    break
+
+            except ValueError:
+                print("Enter 1 or 2.")
+                continue
+
+        if action == 1:
+            self.try_catch_pokemon(player)
+
+        elif action == 2:
+            print("You flee like the little sissy that you are!")
+            print("Your team laughs at you...")
+            return
+
+    def try_catch_pokemon(self, player):
         pass
 
     def remove_pokemon_menu(self, player):
