@@ -45,6 +45,7 @@ class Player:
             return None
 
     def show_collection(self):
+        """Show all the pokemon in the player's team"""
         os.system("clear")
         print(f"{self.name}'s Pokemon Collection:")
         print("-----------------------------------")
@@ -55,9 +56,6 @@ class Player:
 
 
 class PokemonGame:
-    def __init__(self):
-        pass
-
     def get_pokemon_data(self, pokemon_identifier):
         """
         Get Pokemon data from PokeAPI and extract game-relevant information
@@ -92,6 +90,8 @@ class PokemonGame:
             return None
 
     def choose_starter(self, player):
+        """Choose starter pokemon for player"""
+
         print("Choose your starting Pokemon!")
         print("1. Bulbasaur")
         print("2. Charmander")
@@ -192,7 +192,7 @@ H     H  UUUUU  N  N  N   T    IIIII  N  N  N  GGGGG
         """
         Generate ran num for pokemon id
         Call get_pokemon_data and pass in ran num
-        Assign returned data to Var
+        Assign returned data to var
         Ask user if want to keep
         If so call try_catch_pokemon
         """
@@ -306,6 +306,13 @@ LLLLL  oooooo  LLLLL
             return
 
     def remove_pokemon_menu(self, player):
+        """
+        Remove pokemon
+        Show collection
+        Get index to remove
+        Call remove_pokemon, pass in index
+        """
+
         print("Release the pokemon back to nature!")
         print("What pokemon will you release?")
         player.show_collection()
@@ -336,6 +343,7 @@ LLLLL  oooooo  LLLLL
 
 
 def main():
+    """Init the game"""
     pokemon_game = PokemonGame()
     pokemon_game.intro_screen()
 
