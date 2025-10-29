@@ -45,7 +45,9 @@ class Player:
             return None
 
     def show_collection(self):
+        os.system("clear")
         print(f"{self.name}'s Pokemon Collection:")
+        print("-----------------------------------")
         i = 1
         for pokemon in self.team:
             print(f"{i}. {pokemon.name} (ID: {pokemon.id}) - {pokemon.type}")
@@ -142,6 +144,15 @@ class PokemonGame:
 
         os.system("clear")
         print("Welcome to Pokemon CLI Adventure!")
+        print("===================================")
+        print("""
+PPPP   OOOOO  KKK  KKK EEEEE  M     M   OOOOO  N     N 
+P   P O     O K  K  K  E      MM   MM  O     O  NN    N 
+PPPP  O     O KKK     EEEEE  M M M M  O     O  N N   N 
+P     O     O K  K    E      M  M  M  O     O  N  N  N 
+P      OOOOO  K   K   EEEEE  M     M   OOOOO   N   N N 
+""")
+        print("===================================")
         name = ""
         try:
             name = str(input(("What is your name, trainer? ")))
@@ -158,7 +169,22 @@ class PokemonGame:
         player = Player()
         player.name = name.title()
 
+        os.system("clear")
+        print("""
+PPPP   OOOOO  KKK  KKK EEEEE  M     M   OOOOO   N     N 
+P   P O     O K  K  K  E      MM   MM  O     O  NN    N 
+PPPP  O     O KKK     EEEEE  M M M M  O     O  N N   N 
+P     O     O K  K    E      M  M  M  O     O  N  N  N 
+P      OOOOO  K   K   EEEEE  M     M   OOOOO   N   N N 
+                                                      
+H     H U     U N     N TTTTTTT IIIII N     N GGGGG 
+H     H U     U N     N   T      I    N     N G     
+HHHHHHH U     U NN    N   T      I    NN    N G  GGG 
+H     H U     U N N   N   T      I    N N   N G     G
+H     H  UUUUU  N  N  N   T    IIIII  N  N  N  GGGGG 
+""")
         print(f"Hello {player.name}!! Lets go hunting!")
+        print("")
         print(f"Ok {player.name} lets get you set up with a starter Pokemon!")
         self.choose_starter(player)
 
@@ -175,8 +201,16 @@ class PokemonGame:
 
         if ran_pokemon:
             pokemon = Pokemon(**ran_pokemon)
-            # player.add_pokemon(pokemon)
 
+        os.system("clear")
+        print("")
+        print("""
+OOOO  H     H         SSS  N     N   AAAAA   PPPP   *** 
+O  O  H     H        S     NN    N  A     A  P   P  
+O  O  HHHHHHH         SSS  N N   N  AAAAAAA  PPPP   !!!
+O  O  H     H            S N  N  N  A     A  P      !!!
+OOOO  H     H        SSSS  N   N N  A     A  P      !!!
+""")
         print("You and your team go hunting far and wide for a pokemon.")
         print(f"Suddenly a wild {pokemon.name} appears! They glower at you.")
 
@@ -201,6 +235,13 @@ class PokemonGame:
             self.try_catch_pokemon(player, pokemon)
 
         elif action == 2:
+            print("""
+SSSS   IIIII   SSSS   SSSS   Y   Y  !!!!!
+S        I     S      S       Y Y   !!!!!
+ SSSS    I      SSSS   SSSS    Y    !!!!!
+     S   I          S      S   Y    !!!!!
+SSSS   IIIII  SSSS   SSSS     Y    !!!!!
+""")
             print("You flee like the little sissy that you are!")
             print("Your team laughs at you...")
             pokemon = None  # dereference pokemon for garbage collection
@@ -216,14 +257,30 @@ class PokemonGame:
         base_catch_rate = 0.25
         ran_float = random.random()
 
-        print(f"You stare the {pokemon.name} down!")
+        os.system("clear")
         print(
             "Hmmm Ive never watched pokemon so I have no idea how the chars catch them.... "
         )
         print("Ill make it up!")
+        print("")
+        print("""
+BBBB   AAAAA  TTTTTTT TTTTTTT L     EEEEE 
+B   B A     A   T       T     L     E     
+BBBB  AAAAAAA   T       T     L     EEEEE 
+B   B A     A   T       T     L     E     
+BBBB  A     A   T       T     LLLLL EEEEE 
+""")
+        print(f"You stare the {pokemon.name} down!")
         print(f"You run at the {pokemon.name} and try to spin kick it in the face! ")
 
         if ran_float <= base_catch_rate:
+            print("""
+W   W  H     H   AAAAA   CCCCC  KKK  KKK  !!!!!
+W   W  H     H  A     A  C      K  K  K   !!!!!
+W W W  HHHHHHH  AAAAAAA  C      KKK      !!!!!
+W W W  H     H  A     A  C      K  K     !!!!!
+W   W  H     H  A     A  CCCCC  K   K    !!!!!
+""")
             print("Your flying spin kick lands!")
             print(
                 f"{pokemon.name} crumbles in pain. You hand cuff them and add them to your team!"
@@ -231,8 +288,16 @@ class PokemonGame:
             player.add_pokemon(pokemon)
 
         else:
+            print("")
+            print("""
+L      oooooo   L     
+L     o     o  L     
+L     o     o  L     
+L     o     o  L     
+LLLLL  oooooo  LLLLL 
+""")
             print(
-                f"{pokemon.name} rolls on the floor laughing and you miss them by a mile."
+                f"{pokemon.name} rolls on the floor laughing as you miss them by a mile."
             )
             print(
                 f'"See ya noob. Cant catch me!" {pokemon.name} says as they run away!'
